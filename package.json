@@ -1,0 +1,23 @@
+{
+  "name": "msw-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "format:write": "prettier --write ."
+  },
+  "dependencies": {
+    "msw": "^0.19.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "fetch-absolute": "^1.0.0",
+    "jest": "^26.0.1",
+    "lowdb": "^1.0.0",
+    "node-fetch": "^2.6.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.0",
+    "typescript": "^3.9.5"
+  }
+}
