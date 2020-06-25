@@ -23,9 +23,10 @@ export function getEndpointsFor(data:object): RequestHandlersList {
             return res(ctx.data(db.get(key).value()))
         }))
 
-        // handlers.push(graphql.mutation(_.startCase(key), (req,res,ctx) => {
-
-        // }))
+        handlers.push(graphql.mutation(_.startCase(key), (req,res,ctx) => {
+            db.set(key, req.variables).write(); 
+            return res(ctx.data(db.get(key).value()))
+        }))
 
 
     })
