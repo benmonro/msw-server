@@ -8,6 +8,7 @@
     "format:write": "prettier --write ."
   },
   "dependencies": {
+    "graphql-request": "^2.0.0",
     "msw": "^0.19.4"
   },
   "devDependencies": {
