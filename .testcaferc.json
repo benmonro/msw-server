@@ -3,6 +3,6 @@
         { "module": "@testing-library/dom/dist/@testing-library/dom.umd.js" }
       ],
       "src": "testcafe/**/*.spec.ts",
-      "browsers": ["chrome --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost:1337"],
+      "browsers": ["chrome --ignore-certificate-errors --allow-insecure-localhost"],
       "appCommand": "(cd app && yarn dev)"
 }
