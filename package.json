@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "testcafe":"node runtestCafe.js",
     "format:write": "prettier --write .",
     "build": "tsc"
   },
@@ -22,6 +23,7 @@
     "jest": "^26.0.1",
     "lowdb": "^1.0.0",
     "node-fetch": "^2.6.0",
+    "openssl-self-signed-certificate": "^1.1.6",
     "prettier": "^2.0.5",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
