@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "format:write": "prettier --write .",
-    "build": "tsc ."
+    "build": "tsc"
   },
   "dependencies": {
     "@testing-library/testcafe": "^4.2.0",

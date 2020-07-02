@@ -5,7 +5,7 @@ import { useQuery, queryCache, useMutation } from "react-query";
 const ENTER_KEY = 13;
 if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
   const { setupWorker } = require("../../dist/browser");
-  const worker = setupWorker({ todos: [{ text: "xxx" }, { text: "foo" }] });
+  const worker = setupWorker({ todos: [{id:1, text: "xxx" }, {id:2, text: "foo" }] });
   worker.start();
 }
 
@@ -16,7 +16,7 @@ const fetchTodos = async () => {
   return todos;
 };
 
-const addTodo = async (text, ...args) => {
+const addTodoMutation = async (text) => {
   const results = await fetch("/todos", {
     method: "POST",
     body: JSON.stringify({ text }),
@@ -26,28 +26,35 @@ const addTodo = async (text, ...args) => {
   return todos;
 };
 
+const deleteTodoMutation = async(todo) => {
+  await fetch(`/todos/${todo.id}`, {method:"DELETE"})
+}
+const invalidateTodos = () => {
+  queryCache.invalidateQueries("todos");
+}
 export default function Home() {
-  const [mutate] = useMutation(addTodo, {
-    onSuccess: () => {
-      queryCache.invalidateQueries("todos");
-    },
+  const [addTodo] = useMutation(addTodoMutation, {
+    onSuccess: invalidateTodos,
   });
+
+
+  const [deleteTodo] = useMutation(deleteTodoMutation, {onSuccess:invalidateTodos}) 
+
   const { data: todos, status } = useQuery("todos", fetchTodos);
   const textbox = useRef(null);
-  // const [todos, setTodos] = useState([{text:"hello"},{text:"foo"}]);
 
-  console.log({ status });
   if (status === "loading") {
     return <span>Loading...</span>;
+  }
+
+  async function onTodoClick(todo) {
+    await deleteTodo(todo)
   }
 
   async function onNewTodoType(evt) {
     if (event.which === ENTER_KEY) {
       const text = evt.target.value;
-      // let results = await fetch("/todos")
-      // let json = await results.json();
-      // setTodos([...todos, {text}]);
-      mutate(text);
+      await addTodo(text);
       textbox.current.value = "";
     }
   }
@@ -69,17 +76,18 @@ export default function Home() {
 
           <div className="grid">
             {todos?.map((todo) => (
-              <div key={todo.text} className="card">
-                <h3>{todo.text}</h3>
-              </div>
+              <a onClick={() => onTodoClick(todo)}>
+                <div key={todo.text} className="card">
+                  <h3>{todo.text}</h3>
+                </div>
+              </a>
             ))}
+          </div>
 
             <label>
-              <span>text</span>
+              <div>Add a todo</div>
               <input type="text" ref={textbox} onKeyPress={onNewTodoType} />
             </label>
-            <button>add todo</button>
-          </div>
         </main>
 
         <style jsx>{`
