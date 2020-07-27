@@ -1,22 +1,17 @@
 const createTestCafe        = require('testcafe');
 const selfSignedSertificate = require('openssl-self-signed-certificate');
-let runner                  = null;
+
 
 const sslOptions = {
     key:  selfSignedSertificate.key,
     cert: selfSignedSertificate.cert
 };
 
-createTestCafe('localhost', 1337, 1338, sslOptions)
-    .then(testcafe => {
-        runner = testcafe.createRunner();
-    })
-    .then(() => {
-        return runner
+(async function() {const testcafe = await createTestCafe('localhost', 1337, 1338, sslOptions)
 
-            // Browsers restrict self-signed certificate usage unless you
-            // explicitly set a flag specific to each browser.
-            // For Chrome, this is '--allow-insecure-localhost'.
-            // .browsers('chrome --allow-insecure-localhost')
-            .run();
-    });
+      const   runner =  process.argv.includes("--live") ? testcafe.createLiveModeRunner() : testcafe.createRunner();
+
+    await runner.run();
+    await testcafe.close();
+
+})()

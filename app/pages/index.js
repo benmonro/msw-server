@@ -5,7 +5,7 @@ import { useQuery, queryCache, useMutation } from "react-query";
 const ENTER_KEY = 13;
 if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
   const { setupWorker } = require("../../dist/browser");
-  const worker = setupWorker({ todos: [{id:1, text: "xxx" }, {id:2, text: "foo" }] });
+  const worker = setupWorker({ todos: [{id:1, text: "foo" }, {id:2, text: "bar" }] });
   worker.start();
 }
 
@@ -26,6 +26,18 @@ const addTodoMutation = async (text) => {
   return todos;
 };
 
+const updateTodoMutation = async ({text, id}) => {
+  debugger;
+  const results = await fetch(`/todos/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ text }),
+  });
+  const todos = await results.json();
+
+  return todos;
+};
+
+
 const deleteTodoMutation = async(todo) => {
   await fetch(`/todos/${todo.id}`, {method:"DELETE"})
 }
@@ -33,9 +45,17 @@ const invalidateTodos = () => {
   queryCache.invalidateQueries("todos");
 }
 export default function Home() {
+  const [editingTodo, setEditingTodo] = useState(null)
   const [addTodo] = useMutation(addTodoMutation, {
     onSuccess: invalidateTodos,
   });
+
+  const [updateTodo] = useMutation(updateTodoMutation, {
+    onSuccess(){
+      invalidateTodos();
+      setEditingTodo(null);
+    } 
+  })
 
 
   const [deleteTodo] = useMutation(deleteTodoMutation, {onSuccess:invalidateTodos}) 
@@ -47,8 +67,12 @@ export default function Home() {
     return <span>Loading...</span>;
   }
 
-  async function onTodoClick(todo) {
+  async function onDeleteTodoButtonClick(todo) {
     await deleteTodo(todo)
+  }
+
+  async function onEditTodoButtonClick(todo) {
+    setEditingTodo(todo);
   }
 
   async function onNewTodoType(evt) {
@@ -58,7 +82,10 @@ export default function Home() {
       textbox.current.value = "";
     }
   }
-  console.log({ todos });
+  async function onEditTodoType(evt) {
+
+  }
+
   return (
     todos && (
       <div className="container">
@@ -76,11 +103,23 @@ export default function Home() {
 
           <div className="grid">
             {todos?.map((todo) => (
-              <a onClick={() => onTodoClick(todo)}>
-                <div key={todo.text} className="card">
-                  <h3>{todo.text}</h3>
+              <div key={todo.text} className="card">
+
+                  {editingTodo && editingTodo.id === todo.id ? <input type="text" defaultValue={todo.text} onKeyPress={async (evt) => {
+                        if (event.which === ENTER_KEY) {
+                          const text = evt.target.value;
+                          await updateTodo({text, id: todo.id});
+                        }
+                  }}   /> : <h3>{todo.text}</h3>}
+                  {!editingTodo &&<div className="actions">
+                    <button onClick={() => onDeleteTodoButtonClick(todo)}>
+                      Done
+                    </button>
+                    <button onClick={() => onEditTodoButtonClick(todo)}>
+                      Edit
+                    </button>
+                  </div>}
                 </div>
-              </a>
             ))}
           </div>
 
@@ -99,6 +138,8 @@ export default function Home() {
             justify-content: center;
             align-items: center;
           }
+
+
 
           main {
             padding: 5rem 0;
@@ -203,11 +244,19 @@ export default function Home() {
             font-size: 1.5rem;
           }
 
+          .card .actions {
+            display: none
+          }
+          .card:hover .actions {
+            display: block
+          }
+
           .card p {
             margin: 0;
             font-size: 1.25rem;
             line-height: 1.5;
           }
+
 
           .logo {
             height: 1em;
