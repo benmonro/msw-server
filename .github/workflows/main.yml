@@ -23,7 +23,7 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn test
       - name: Run TestCafe Tests
-        uses: benmonro/testcafe-action@latest
+        uses: benmonro/testcafe-action@benv1
         with:
           cmd: "yarn testcafe"
           args: "${{ matrix.browser}}"
