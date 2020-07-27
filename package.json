@@ -5,16 +5,23 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "start": "yarn build && (cd app && yarn dev)",
+    "testcafe": "NEXT_PUBLIC_IS_TESTCAFE=1 node runtestCafe.js",
     "format:write": "prettier --write .",
     "build": "tsc"
   },
   "dependencies": {
+    "@graphql-tools/mock": "^6.0.15",
+    "@graphql-tools/schema": "^6.0.15",
     "@testing-library/testcafe": "^4.2.0",
+    "@types/node": "^14.0.25",
+    "@types/node-fetch": "^2.5.7",
+    "@walmartlabs/json-to-simple-graphql-schema": "^2.0.1",
+    "graphql": "^15.3.0",
     "graphql-request": "^2.0.0",
     "json-server": "^0.16.1",
     "lodash-id": "^0.14.0",
-    "msw": "^0.19.4",
-    "testcafe": "^1.8.7"
+    "msw": "^0.19.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.3",
@@ -22,7 +29,9 @@
     "jest": "^26.0.1",
     "lowdb": "^1.0.0",
     "node-fetch": "^2.6.0",
+    "openssl-self-signed-certificate": "^1.1.6",
     "prettier": "^2.0.5",
+    "testcafe": "^1.8.8",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   }

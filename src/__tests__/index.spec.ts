@@ -78,42 +78,57 @@ describe("simple rest server", () => {
   })
 });
 
-xdescribe("simple gql server", () => {
-  it("will create a query", async () => {
+describe("simple gql server", () => {
+  xit("will create a Posts query with comments", async () => {
     const query = `
-    query GetFoo {
-      foo {
-        bar
-      }
+    query GetPosts {
+      posts { 
+        title
+        comments {
+          body
+        }
+      } 
     }`;
 
     const results = await request("/", query);
 
-    expect(results).toEqual({ bar: "baz" });
+    expect(results).toEqual({posts:[{"title": "json-server"}]});
+  });
+  it("will create a Posts query", async () => {
+    const query = `
+    query GetPosts {
+      posts { 
+        title
+      } 
+    }`;
+
+    const results = await request("/", query);
+
+    expect(results).toEqual({posts:[{"title": "json-server"}]});
   });
 
-  it("will create a mutation", async () => {
+  xit("will create a mutation", async () => {
     const query = `
-    mutation Foo($bar: Object) {
-      foo {
-        bar
+    mutation Posts($title: String) {
+      posts {
+        title
       }
     }`;
 
-    const variables = { bar: "qux" };
+    const variables = { title: "a series of unfortunate events" };
     const results = await request("/", query, variables);
 
-    expect(results).toEqual({ bar: "qux" });
+    expect(results).toEqual({posts:[{ title: "a series of unfortunate events" }]});
 
     const query2 = `
-    query GetFoo {
-      foo {
-        bar
-      }
+    query GetPosts {
+      posts { 
+        title
+      } 
     }`;
 
     const results2 = await request("/", query2);
 
-    expect(results2).toEqual({ bar: "qux" });
+    expect(results2).toEqual({posts:[{ title: "a series of unfortunate events" }]});
   });
 });

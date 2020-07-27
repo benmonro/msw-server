@@ -71,16 +71,19 @@ self.addEventListener("fetch", async function (event) {
   const { clientId, request } = event;
   const requestClone = request.clone();
   const getOriginalResponse = () => fetch(requestClone);
-
+  
   // Opening the DevTools triggers the "only-if-cached" request
   // that cannot be handled by the worker. Bypass such requests.
   if (request.cache === "only-if-cached" && request.mode !== "same-origin") {
     return;
   }
-
+  
   event.respondWith(
     new Promise(async (resolve) => {
       const client = await event.target.clients.get(clientId);
+      
+
+
 
       if (
         // Bypass mocking when no clients active
@@ -145,9 +148,10 @@ self.addEventListener("fetch", async function (event) {
         }
 
         case "INTERNAL_ERROR": {
+
           const parsedBody = JSON.parse(clientMessage.payload.body);
 
-          console.error(
+          console.warn(
             `\
 [MSW] Request handler function for "%s %s" has thrown the following exception:
 
@@ -161,7 +165,7 @@ If you wish to mock an error response, please refer to this guide: https://redd.
             request.url
           );
 
-          return resolve(createResponse(clientMessage));
+          return resolve(getOriginalResponse());
         }
       }
     }).catch((error) => {
