@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
-  "files":[
+  "files": [
     "dist",
     "types"
   ],
@@ -35,7 +35,6 @@
     "node-fetch": "^2.6.0",
     "openssl-self-signed-certificate": "^1.1.6",
     "prettier": "^2.0.5",
-    "semantic-release": "^17.1.1",
     "testcafe": "^1.8.8",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
