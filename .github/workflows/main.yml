@@ -25,7 +25,7 @@ jobs:
       - name: Run TestCafe Tests
         uses: benmonro/testcafe-action@benv1
         with:
-          cmd: "NEXT_PUBLIC_IS_TESTCAFE=1 node runtestCafe.js"
+          cmd: "node runtestCafe.js"
           args: "${{ matrix.browser}}"
   release:
     runs-on: ubuntu-latest
