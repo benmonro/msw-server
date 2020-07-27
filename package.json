@@ -1,7 +1,7 @@
 {
   "name": "msw-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "test": "jest",
@@ -13,19 +13,19 @@
   "dependencies": {
     "@graphql-tools/mock": "^6.0.15",
     "@graphql-tools/schema": "^6.0.15",
-    "@testing-library/testcafe": "^4.2.0",
-    "@types/node": "^14.0.25",
-    "@types/node-fetch": "^2.5.7",
     "@walmartlabs/json-to-simple-graphql-schema": "^2.0.1",
     "graphql": "^15.3.0",
-    "graphql-request": "^2.0.0",
     "json-server": "^0.16.1",
     "lodash-id": "^0.14.0",
     "msw": "^0.19.5"
   },
   "devDependencies": {
+    "@testing-library/testcafe": "^4.2.0",
     "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.26",
+    "@types/node-fetch": "^2.5.7",
     "fetch-absolute": "^1.0.0",
+    "graphql-request": "^2.0.0",
     "jest": "^26.0.1",
     "lowdb": "^1.0.0",
     "node-fetch": "^2.6.0",

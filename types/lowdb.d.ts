@@ -8,5 +8,4 @@ declare module "lowdb/adapters/Memory" {
   export = x;
 }
 
-
-declare module '@walmartlabs/json-to-simple-graphql-schema/lib';
+declare module "@walmartlabs/json-to-simple-graphql-schema/lib";

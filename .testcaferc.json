@@ -1,12 +1,13 @@
 {
-    "clientScripts": [
-        { "module": "@testing-library/dom/dist/@testing-library/dom.umd.js" },
-        { "path":"./testcafe/registerServiceWorker.js"}
-      ],
-      "src": "testcafe/**/*.spec.ts",
-      "browsers": ["chrome --ignore-certificate-errors --allow-insecure-localhost"],
-      "appCommand": "yarn start",
-      "allowedServiceWorkers":["/mockServiceWorker.js"],
-      "concurrency":1,
-      "pageLoadTimeout":6000
+  "clientScripts": [
+    { "module": "@testing-library/dom/dist/@testing-library/dom.umd.js" },
+    { "path": "./testcafe/registerServiceWorker.js" }
+  ],
+  "src": "testcafe/**/*.spec.ts",
+  "browsers": ["chrome --ignore-certificate-errors --allow-insecure-localhost"],
+  "appCommand": "yarn start",
+  "allowedServiceWorkers": ["/mockServiceWorker.js"],
+  "concurrency": 1,
+  "quarantineMode":true,
+  "pageLoadTimeout": 6000
 }

@@ -6,7 +6,7 @@ import { request } from "graphql-request";
 const fetch = fetchAbsolute(nodeFetch)("http://localhost");
 global.fetch = fetch;
 
-const data = require('./db.json');
+const data = require("./db.json");
 let server = setupServer(data);
 beforeEach(() => server.listen());
 
@@ -18,49 +18,58 @@ afterAll(() => server.close());
 describe("simple rest server", () => {
   it("will create a GET", async () => {
     const results = await fetch("/posts");
-    expect(await results.json()).toEqual([{
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }]);
+    expect(await results.json()).toEqual([
+      {
+        id: 1,
+        title: "json-server",
+        author: "typicode",
+      },
+    ]);
   });
 
   it("will create a POST", async () => {
     const results = await fetch("/posts", {
       method: "POST",
-      body: JSON.stringify({ title:"foo", author:"bar" }),
+      body: JSON.stringify({ title: "foo", author: "bar" }),
     });
 
-    expect(await results.json()).toEqual({ id:2, title:"foo",author:"bar" });
+    expect(await results.json()).toEqual({
+      id: 2,
+      title: "foo",
+      author: "bar",
+    });
 
     const results2 = await fetch("/posts");
     expect(await results2.json()).toEqual([
       {
-        "id": 1,
-        "title": "json-server",
-        "author": "typicode"
-      },{ id:2, title:"foo",author:"bar" }
+        id: 1,
+        title: "json-server",
+        author: "typicode",
+      },
+      { id: 2, title: "foo", author: "bar" },
     ]);
   });
 
   it("will create a PUT", async () => {
     const results = await fetch("/posts/1", {
       method: "PUT",
-      body: JSON.stringify({ title: "grievances", author:"costanza" }),
+      body: JSON.stringify({ title: "grievances", author: "costanza" }),
     });
 
     expect(await results.json()).toEqual({
-      "id": 1,
-      "title": "grievances",
-      "author": "costanza"
+      id: 1,
+      title: "grievances",
+      author: "costanza",
     });
 
     const results2 = await fetch("/posts");
-    expect(await results2.json()).toEqual([{
-      "id": 1,
-      "title": "grievances",
-      "author": "costanza"
-    }]);
+    expect(await results2.json()).toEqual([
+      {
+        id: 1,
+        title: "grievances",
+        author: "costanza",
+      },
+    ]);
   });
 
   it("will create a DELETE", async () => {
@@ -75,7 +84,7 @@ describe("simple rest server", () => {
 
     // const results3 = await fetch("/comments");
     // expect(await results3.json()).toBe([])
-  })
+  });
 });
 
 describe("simple gql server", () => {
@@ -92,7 +101,7 @@ describe("simple gql server", () => {
 
     const results = await request("/", query);
 
-    expect(results).toEqual({posts:[{"title": "json-server"}]});
+    expect(results).toEqual({ posts: [{ title: "json-server" }] });
   });
   it("will create a Posts query", async () => {
     const query = `
@@ -104,7 +113,7 @@ describe("simple gql server", () => {
 
     const results = await request("/", query);
 
-    expect(results).toEqual({posts:[{"title": "json-server"}]});
+    expect(results).toEqual({ posts: [{ title: "json-server" }] });
   });
 
   xit("will create a mutation", async () => {
@@ -118,7 +127,9 @@ describe("simple gql server", () => {
     const variables = { title: "a series of unfortunate events" };
     const results = await request("/", query, variables);
 
-    expect(results).toEqual({posts:[{ title: "a series of unfortunate events" }]});
+    expect(results).toEqual({
+      posts: [{ title: "a series of unfortunate events" }],
+    });
 
     const query2 = `
     query GetPosts {
@@ -129,6 +140,8 @@ describe("simple gql server", () => {
 
     const results2 = await request("/", query2);
 
-    expect(results2).toEqual({posts:[{ title: "a series of unfortunate events" }]});
+    expect(results2).toEqual({
+      posts: [{ title: "a series of unfortunate events" }],
+    });
   });
 });
