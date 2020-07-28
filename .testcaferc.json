@@ -6,7 +6,6 @@
   "src": "testcafe/**/*.spec.ts",
   "browsers": ["chrome:headless --ignore-certificate-errors --allow-insecure-localhost"],
   "appCommand": "yarn start",
-  "allowedServiceWorkers": ["/mockServiceWorker.js"],
   "concurrency": 1,
   "quarantineMode":true,
   "pageLoadTimeout": 6000

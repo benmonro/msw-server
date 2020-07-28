@@ -26,7 +26,7 @@ jobs:
         with:
           args: '-v'
       - name: Run testcafe
-        run: yarn testcafe     
+        run:  NEXT_PUBLIC_IS_TESTCAFE=1 node runtestCafe.js  
   release:
     runs-on: ubuntu-latest
     needs: test
