@@ -3,23 +3,14 @@ import { useState, useRef } from "react";
 import { useQuery, queryCache, useMutation } from "react-query";
 
 const ENTER_KEY = 13;
-let worker;
 if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
   const { setupWorker } = require("../../dist/browser");
-  const {rest} = require("msw");
-  worker = setupWorker({
+  const worker = setupWorker({
     todos: [
       { id: 1, text: "foo" },
       { id: 2, text: "bar" },
     ],
   });
-
-  // worker.use(
-  //   rest.get("/todos", (req,res,ctx) => {
-  //     // ctx.fetch("/real-prod/url")
-  //     return res.once(ctx.status(500));
-  //   })
-  // )
   worker.start();
 }
 
@@ -27,14 +18,8 @@ const fetchTodos = async () => {
   const results = await fetch("/todos");
   const todos = await results.json();
 
-  // const hey = await fetch("/hey");
-  // const heySo = await hey.json();
-  // console.log({heySo});
-
   return todos;
 };
-
-
 
 const addTodoMutation = async (text) => {
   const results = await fetch("/todos", {

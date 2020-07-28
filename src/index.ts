@@ -5,9 +5,10 @@ export function setupServer(data: object) {
   const server = mswSetupServer(...getEndpointsFor(data));
 
   return {
-    ...server,
+    listen: server.listen,
     resetHandlers() {
       server.resetHandlers(...getEndpointsFor(data));
     },
+    close: server.close,
   };
 }
