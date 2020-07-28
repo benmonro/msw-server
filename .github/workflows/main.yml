@@ -21,13 +21,12 @@ jobs:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v1
       - run: yarn --frozen-lockfile
-      - run: NEXT_PUBLIC_IS_TESTCAFE=1 xvfb-run --server-args="-screen 0 1280x720x24" node ./runtestCafe.js
-#       - run: yarn test
-#       - name: Run TestCafe Tests
-#         uses: benmonro/testcafe-action@benv1
-#         with:
-#           cmd: "node runtestCafe.js"
-#           args: "${{ matrix.browser}}"
+      - name: Install TestCafe
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: '-v'
+      - name: Run testcafe
+        run: yarn testcafe     
   release:
     runs-on: ubuntu-latest
     needs: test
