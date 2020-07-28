@@ -4,7 +4,7 @@ import { getEndpointsFor } from "./getEndpoints";
 export function setupWorker(data: object) {
   const worker = mswSetupWorker(...getEndpointsFor(data));
   return {
-    start: worker.start,
+    ...worker,
     resetHandlers(data: object) {},
   };
 }
