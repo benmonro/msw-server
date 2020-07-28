@@ -16,6 +16,11 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("simple rest server", () => {
+  it("will work with nothing passed in", () => {
+    const fakeServer = setupServer();
+
+    expect(fakeServer).toBeDefined();
+  })
   it("will create a GET", async () => {
     const results = await fetch("/posts");
     expect(await results.json()).toEqual([

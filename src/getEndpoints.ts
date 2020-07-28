@@ -29,7 +29,10 @@ function withUrl(url: string) {
   }
   return url;
 }
-export function getEndpointsFor(data: object): RequestHandlersList {
+export function getEndpointsFor(data?: object): RequestHandlersList {
+  if(!data) {
+    return [];
+  }
   const db = low(new Memory()).setState(JSON.parse(JSON.stringify(data)));
   db._.mixin(lodashId);
   db._.mixin(mixins);
