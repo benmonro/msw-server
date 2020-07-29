@@ -4,7 +4,7 @@
     { "path": "./testcafe/registerServiceWorker.js" }
   ],
   "src": "testcafe/**/*.spec.ts",
-  "browsers": ["chrome:headless --ignore-certificate-errors --allow-insecure-localhost"],
+  "browsers": ["chromium:headless --ignore-certificate-errors --allow-insecure-localhost"],
   "appCommand": "yarn start",
   "concurrency": 1,
   "quarantineMode":true,
