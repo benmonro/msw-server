@@ -5,7 +5,7 @@
   ],
   "src": "testcafe/**/*.spec.ts",
   "browsers": ["chrome:headless --ignore-certificate-errors --allow-insecure-localhost"],
-  "appCommand": "yarn start",
+  "appCommand": "(cd app && node_modules/.bin/next dev)",
   "concurrency": 1,
   "quarantineMode":true,
   "pageLoadTimeout": 6000
