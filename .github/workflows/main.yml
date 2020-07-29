@@ -28,7 +28,7 @@ jobs:
         with:
           args: '-v'
       - name: Run testcafe
-        run:  yarn testcafe
+        run:  yarn e2e
   release:
     runs-on: ubuntu-latest
     needs: test
