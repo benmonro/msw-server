@@ -14,18 +14,26 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [14, 12, 10]
-        browser: ["chrome:headless", "firefox:headless"]
+        browser: ["chrome:headless"] #, "firefox:headless"]
     steps:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v1
-      - run: yarn --frozen-lockfile
-      - run: yarn test
-#       - name: Run TestCafe Tests
-#         uses: DevExpress/testcafe-action@latest
-#         with:
-#           args: "${{ matrix.browser}} tests/testcafe"
+      - run: yarn
+      - run: ls node_modules/@graphql-tools/schema
+      - run: ls node_modules/graphql
+      
+      - name: Build
+        run: yarn build
+      - run: (cd app && yarn)
+      # - run: yarn test
+      - name: Install TestCafe
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: '-v'
+      - name: Run testcafe
+        run:  yarn e2e
   release:
     runs-on: ubuntu-latest
     needs: test
