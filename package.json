@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "start": "yarn build && (cd app && yarn dev)",
-    "testcafe": "NEXT_PUBLIC_IS_TESTCAFE=1 node runtestCafe.js",
+    "start": "yarn -v && yarn build && (cd app && yarn --frozen-lockfile && yarn dev)",
+    "e2e": "NEXT_PUBLIC_IS_TESTCAFE=1 node runtestCafe.js",
     "format:write": "prettier --write .",
     "build": "tsc"
   },
