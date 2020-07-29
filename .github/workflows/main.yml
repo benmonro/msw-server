@@ -21,13 +21,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v1
       - run: yarn --frozen-lockfile
+      - run: (cd app && yarn --frozen-lockfile)
       - run: yarn test
-      # - name: Install TestCafe
-      #   uses: DevExpress/testcafe-action@latest
-      #   with:
-      #     args: '-v'
-      # - name: Run testcafe
-        # run:  NEXT_PUBLIC_IS_TESTCAFE=1 node runtestCafe.js  
+      - name: Install TestCafe
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: '-v'
+      - name: Run testcafe
+        run:  yarn testcafe
   release:
     runs-on: ubuntu-latest
     needs: test
