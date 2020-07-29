@@ -23,14 +23,15 @@ jobs:
       - run: yarn
       - run: ls node_modules/@graphql-tools/schema
       - run: ls node_modules/graphql
+      
+      - name: Build
+        run: yarn build
       - run: (cd app && yarn)
       # - run: yarn test
       - name: Install TestCafe
         uses: DevExpress/testcafe-action@latest
         with:
           args: '-v'
-      - name: Build
-        run: yarn build
       - name: Run testcafe
         run:  yarn e2e
   release:
