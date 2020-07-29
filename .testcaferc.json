@@ -8,5 +8,6 @@
   "appCommand": "(cd app && node_modules/.bin/next dev)",
   "concurrency": 1,
   "quarantineMode":true,
-  "pageLoadTimeout": 6000
+  "pageLoadTimeout": 6000,
+  "skipJsErrors": true
 }
