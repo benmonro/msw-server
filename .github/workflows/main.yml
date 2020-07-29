@@ -21,6 +21,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v1
       - run: yarn --frozen-lockfile
+      - run: ls node_modules/@graphql-tools
       - run: (cd app && yarn --frozen-lockfile)
       # - run: yarn test
       - name: Install TestCafe
