@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v1
-      - run: yarn --frozen-lockfile
+      - run: yarn
       - run: ls node_modules/@graphql-tools
-      - run: (cd app && yarn --frozen-lockfile)
+      - run: (cd app && yarn)
       # - run: yarn test
       - name: Install TestCafe
         uses: DevExpress/testcafe-action@latest
