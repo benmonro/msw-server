@@ -49,6 +49,6 @@
     ]
   },
   "peerDependencies": {
-    "msw": "^0.19.5"
+    "msw": "0.x"
   }
 }
