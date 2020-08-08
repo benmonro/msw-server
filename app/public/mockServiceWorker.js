@@ -170,7 +170,7 @@ If you wish to mock an error response, please refer to this guide: https://mswjs
             request.url,
           )
 
-          return resolve(getOriginalResponse())
+          return resolve(createResponse(clientMessage))
         }
       }
     }).catch((error) => {
