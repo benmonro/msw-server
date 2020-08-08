@@ -7,7 +7,8 @@
   "browsers": ["chrome --ignore-certificate-errors --allow-insecure-localhost"],
   "appCommand": "yarn start",
   "allowedServiceWorkers": ["/mockServiceWorker.js"],
-  "concurrency": 1,
-  "quarantineMode":true,
-  "pageLoadTimeout": 6000
+  "concurrency": 3,
+  "pageLoadTimeout": 60000,
+  "selectorTimeout": 500000,
+  "assertionTimeout": 50000
 }

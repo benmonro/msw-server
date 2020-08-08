@@ -2,6 +2,10 @@ import { screen } from "@testing-library/testcafe";
 
 fixture("Rest").page`http://localhost:3000`;
 
+// test("heading", async t => {
+//   await t.expect(screen.findByText(/example app|loading/i).exists).ok();
+// });
+
 test("should do a GET", async (t) => {
   await t.expect(screen.findByRole("heading", { name: /foo/ }).exists).ok();
 });
