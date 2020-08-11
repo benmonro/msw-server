@@ -1,18 +1,9 @@
 import Head from "next/head";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, queryCache, useMutation } from "react-query";
 
 const ENTER_KEY = 13;
-if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
-  const { setupWorker } = require("../../dist/browser");
-  const worker = setupWorker({
-    todos: [
-      { id: 1, text: "foo" },
-      { id: 2, text: "bar" },
-    ],
-  });
-  worker.start();
-}
+
 
 const fetchTodos = async () => {
   const results = await fetch("/todos");
@@ -49,6 +40,8 @@ const invalidateTodos = () => {
   queryCache.invalidateQueries("todos");
 };
 export default function Home() {
+
+
   const [editingTodo, setEditingTodo] = useState(null);
   const [addTodo] = useMutation(addTodoMutation, {
     onSuccess: invalidateTodos,
@@ -68,9 +61,11 @@ export default function Home() {
   const { data: todos, status } = useQuery("todos", fetchTodos);
   const textbox = useRef(null);
 
+
   if (status === "loading") {
     return <span>Loading...</span>;
   }
+
 
   async function onDeleteTodoButtonClick(todo) {
     await deleteTodo(todo);

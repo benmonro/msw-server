@@ -9,6 +9,6 @@
   "allowedServiceWorkers": ["/mockServiceWorker.js"],
   "concurrency": 3,
   "pageLoadTimeout": 60000,
-  "selectorTimeout": 500000,
-  "assertionTimeout": 50000
+  "selectorTimeout": 50000000,
+  "assertionTimeout": 5000000
 }

@@ -31,7 +31,7 @@
     "graphql-request": "^2.0.0",
     "jest": "^26.0.1",
     "lowdb": "^1.0.0",
-    "msw": "^0.20.0",
+    "msw": "0.20.4",
     "node-fetch": "^2.6.0",
     "openssl-self-signed-certificate": "^1.1.6",
     "prettier": "^2.0.5",

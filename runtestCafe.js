@@ -13,13 +13,13 @@ const sslOptions = {
   ? testcafe.createLiveModeRunner()
   : testcafe.createRunner();
   
-  for(let i = 0; i < 15; i++) {
+
     
     await runner.run({
       debugMode:process.argv.includes("--debug-mode"),
       debugOnFail: process.argv.includes("--debug-on-fail")
     });
-  }
+
     await testcafe.close();
   })();
   
